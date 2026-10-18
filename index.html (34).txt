@@ -1,0 +1,68 @@
+<div style="text-align: center; background: #fdfdfd; padding: 10px; border-radius: 15px;">
+    <iframe 
+        style="width: 100%; height: 600px; border: 3px solid #34495e; border-radius: 20px; background: white; box-shadow: 0 10px 25px rgba(0,0,0,0.1);"
+        srcdoc='
+        <!DOCTYPE html>
+        <html dir="rtl">
+        <head>
+            <meta charset="UTF-8">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+            <style>
+                body { font-family: Arial, sans-serif; background: #fff; padding: 20px; text-align: center; color: #333; }
+                .qr-card { max-width: 450px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+                h2 { color: #2c3e50; margin-bottom: 20px; }
+                input { width: 90%; padding: 12px; border-radius: 8px; border: 2px solid #ddd; font-size: 16px; margin-bottom: 20px; outline: none; transition: 0.3s; }
+                input:focus { border-color: #3498db; }
+                #qrcode { margin: 20px auto; padding: 15px; background: #fff; display: inline-block; border: 1px solid #eee; }
+                .btn-gen { background: #34495e; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-size: 18px; cursor: pointer; width: 95%; margin-bottom: 10px; font-weight: bold; }
+                .btn-save { background: #27ae60; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-size: 18px; cursor: pointer; width: 95%; display: none; font-weight: bold; text-decoration: none; }
+                .footer-text { font-size: 12px; color: #7f8c8d; margin-top: 15px; }
+            </style>
+        </head>
+        <body>
+            <div class="qr-card">
+                <h2>🔗 مولد رموز QR الذكي</h2>
+                <p>أدخل الرابط أو النص لتحويله إلى رمز QR:</p>
+                
+                <input type="text" id="qr-data" placeholder="إكتب الرابط هنا (مثلاً: https://google.com)">
+                
+                <button class="btn-gen" onclick="generateQR()">توليد الرمز 🚀</button>
+                
+                <div id="qrcode"></div>
+                
+                <a id="download-btn" class="btn-save" download="my_qrcode.png">حفظ الرمز كصورة 📥</a>
+                
+                <p class="footer-text">يمكنك مسح الرمز الناتج باستخدام كاميرا الموبايل.</p>
+            </div>
+
+            <script>
+                var qrcode = new QRCode(document.getElementById("qrcode"), {
+                    width: 200,
+                    height: 200
+                });
+
+                function generateQR() {
+                    var data = document.getElementById("qr-data").value;
+                    if (!data) {
+                        alert("من فضلك أدخل رابطاً أو نصاً أولاً!");
+                        return;
+                    }
+                    
+                    qrcode.clear(); 
+                    qrcode.makeCode(data);
+                    
+                    // إظهار زر التحميل بعد ثانية لضمان توليد الصورة
+                    setTimeout(function() {
+                        var img = document.querySelector("#qrcode img");
+                        if (img) {
+                            var btn = document.getElementById("download-btn");
+                            btn.href = img.src;
+                            btn.style.display = "inline-block";
+                        }
+                    }, 500);
+                }
+            </script>
+        </body>
+        </html>'>
+    </iframe>
+</div>
